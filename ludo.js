@@ -1,9 +1,60 @@
 $(document).ready(function(){
-	$('.cont1,.cont2,.home').hide()
-	// $('.cont3').hide();
+	// $('.cont1,.cont2,.home,.win').hide()
+	$('.cont3,.win').hide();
+	var time = 0;
+	var timeDice="";
+	var timerSet = 0;
+	function timer(){
+		setTimeout(()=>{
+			time++;
 
-	var notPlaying=[];
+			if(time==60){
+				li=[];
+				var id = $('.current').attr('id')
+				ni=parseInt(id.substr(1,1));
+				$('.get-num').hide();
+				
+				changeUser();
+			}
+			if(time>50 && timerSet==1 && time%2==0){
+				timeDice = $(`.disp-num`).html();
+				$(`.disp-num`).html(`
+					<div class="square timer-dice">
+						<div class="timer">TIMER</div>
+						${60-time}
+					</div>
+					`)
+
+			}
+			else if(time>50 && timerSet==1 && time%2==1){
+				$(`.disp-num`).html(timeDice);
+			}
+			else if(time%10==0 || timerSet==0){
+				timeDice = $(`.disp-num`).html();
+				$(`.disp-num`).html(`
+					<div class="square timer-dice">
+						<div class="timer">TIMER</div>
+						${60-time}
+					</div>
+					`)
+			}
+			else if(time%11==0 && timerSet==1){
+				$(`.disp-num`).html(timeDice);
+			}
+			
+			// console.log(time)
+			timer();
+		},1000)
+	}
+	timer();
+
+	var notPlaying=[2,3];
+	var first = -1;
+	first=0;
+	$(`#p${first+1}`).addClass('current')
+		$(`.b${first+1}`).show();
 	$('.continue').click(function(){
+		notPlaying=[]
 		var count=0;
 		for(var i=0;i<4;i++){
 			var name = $(`.name${i+1}`).val();
@@ -12,14 +63,20 @@ $(document).ready(function(){
 				notPlaying.push(i);
 			}
 			else{
+				if(first==-1){
+					first=i;
+				}
 				$(`#p${i+1}`).html(name);
 				count++;
 			}
 		}
-		if(count>1){
+		$(`#p${first+1}`).addClass('current')
+		$(`.b${first+1}`).show();
+		if(count>0){
 			console.log(notPlaying)
 			$('.cont3').slideUp({durartion:3000,queue:false})
 			$('.cont1,.cont2,.home').slideDown({durartion:3000,queue:false})
+			timer();
 		}
 		else{
 			alert('please enter name of atleast 2 players')
@@ -216,6 +273,8 @@ $(document).ready(function(){
 	]
 
 	// $('#rb17 .coin-visibility').append(`<div class="coin red-coin" id="rb17" color="red" no="4"></div>`)
+
+	var allP=[];
 	var insideHome = [4,4,4,4];
 	var onHome= [0,0,0,0];
 	var outsideHome = [0,0,0,0];
@@ -235,15 +294,68 @@ $(document).ready(function(){
 		$('.disp-num').html(s);
 		$('.square').addClass(`${color}-dice`)
 	}
+	function canRun(n,color){
+		var li2=[];
+		for(i in li){
+			li2.push(li[i])
+		}
+		if(insideHome[n]==4)return true;
+		// li2.sort();
+		var p=0;
+		for(var i=1;i<=4 && li2.length;i++){
+			p=0;
+			var coin = $(`.coin-visibility div[color='${color}']div[no='${i}']`);
+			if(coin!==undefined){
+				var id = $(coin).attr('id');
+				var pos = homeQueue[n].indexOf(id);
+				if(pos<0)continue;
+				console.log(i,li2,pos)
+				// console.log(li2)
+				// console.log(pos)
+				while(p<li2.length){
+					var f = li2[p];
+					console.log(f)
+					while(pos+f<lenQueue){
+						li2 = remove(li2,f);
+						pos = pos+f;
+						f = li2[p];
+					}
+					p++;
+				}
+				
 
+			}
+		}
+		console.log('last')
+		console.log(li2);
+		if(li2.length==0)return true;
+		console.log('nope')
+		return false;
+		
+	}
 
 	$('.get-num').click(function(){
+		time = 0;
+		timerSet = 1;
 		var id = $('.current').attr('id')
 		ni=parseInt(id.substr(1,1));
 		var coin=['red','blue','yellow','green'];
 		currColor=coin[ni-1]
 		ran = Math.floor(Math.random()*6+1);
 		// ran=6;
+		// ran = $(`.dicevalue`).val();
+		// var s = ""
+		// for(i=0;i<ran.length;i++){
+		// 	if(ran[i]===' '){
+		// 		li.push(parseInt(s))
+		// 		s="";
+		// 	}
+		// 	else{
+		// 		s=s+ran[i];
+		// 	}
+		// }
+		// console.log(li)
+		// ran = parseInt(ran);
 		li.push(ran);
 		if(ran==6){
 			getPoints(li,currColor);
@@ -263,6 +375,7 @@ $(document).ready(function(){
 			$(`.${currColor}-block .${currColor}-coin`).addClass('allowed-coin');
 		}
 		$(`.coin-visibility .${currColor}-coin`).addClass('allowed-coin');
+
 		
 		if(ni==4){
 			ni=0;
@@ -271,52 +384,17 @@ $(document).ready(function(){
 		if(nii==0){
 			nii=4;
 		}
-		// if((onHome[nii-1]==1 && !any()) ||(insideHome[nii-1]==0 && outsideHome[nii-1]==3)){
-		// 	var sum=0;
-		// 	for(i in li){
-		// 		sum+=li[i];
-		// 	}
-		// 	var c1 = $(`.coin-visibility .${currCoin}`).attr('id');
-		// 	var num = $(`.coin-visibility .${currCoin}`).attr('num');
-		// 	$('.allowed-coin').removeClass('allowed-coin');
-		// 	$(`#${c1} .coin-visibility .${currCoin}`).removeClass(`${currCoin}`)
-		// 	$(`#${c1} .coin-visibility .${currCoin}`).removeClass(`coin`)
-		// 	var ind = homeQueue[nii-1].indexOf(c1);
-
-		// 	var nextIndex = ind+sum;
-		// 	if(nextIndex<lenQueue){
-		// 		nextIndexPosition  = homeQueue[nii-1][nextIndex];
-		// 		var cut = $(`#${nextIndexPosition} .coin-visibility .coin`);
-		// 		var cutId = $(cut).attr('no');
-		// 		var cutColor = $(cut).attr('color');
-		// 		if(cutId){
-		// 			var cutCoin=$(`#${id} .coin-visibility div[no='${cutId}']`)
-		// 			// console.log('inside cutting',cutCoin);
-		// 			$(cutCoin).removeClass('coin');
-		// 			$(cutCoin).removeClass(`${cutColor}-coin`);
-		// 			$(cutCoin).attr('no','');
-		// 			$(cutCoin).attr('color','');
-		// 			var coinColor = ['red','blue','yellow','green'];
-		// 			var index = coinColor.indexOf(cutColor);
-		// 			insideHome[index]++;
-		// 			onHome[index]--;
-		// 			$(`.${cutColor}-block div[no='${cutId}']`).addClass(`${cutColor}-coin`)
-		// 			getExtraChance();
-		// 		}
-		// 		$(`#${nextIndexPosition} .coin-visibility`).append(`<div class="coin ${currColor}-coin" color="${currColor}" no="${num}" id="${nextIndexPosition}"></div>`);
-		// 	}
-		// 	setTimeout(function(){
-		// 		li=[];
-		// 		func(currColor,num);
-		// 		changeUser();
-		// 	},400);
-		// }
-		// console.log(nii,!any())
-		if(onHome[nii-1]==0 && !any()){
-			li=[];
-			setTimeout(function(){
-				changeUser();
-			},400);
+		if((onHome[nii-1]==0 && !any())|| !canRun(nii-1,currColor)){
+			if(insideHome[nii-1]>0 && any()){
+				
+			}
+			else{
+				li=[];
+				setTimeout(function(){
+					changeUser();
+				},400);
+			}
+			
 			
 		}
 	})
@@ -328,22 +406,44 @@ $(document).ready(function(){
 		}
 		return false;
 	}
+	var set = 0;
 	function changeUser(){
-		$('.allowed-coin').removeClass('allowed-coin');
-		if(li.length!=0){
-			getPoints(li,currColor);
-			// console.log(li)
-			if(any()){
-				$(`.${currColor}-block .${currColor}-coin`).addClass('allowed-coin');
-			}
-			$(`.coin-visibility .${currColor}-coin`).addClass('allowed-coin');
+		if(notPlaying.length==3){
+			console.log("winn 3");
+			winner();
 			return;
 		}
+		time=0;
+		timerSet = 0;
+		if(set===1 && li.length==0){
+			ni--;
+			if(ni<0){
+				ni=3;
+			}
+			set=0;
+		}
+		$('.allowed-coin').removeClass('allowed-coin');
+		if(li.length!=0){
+			// console.log(ni)
+			if(onHome[ni-1]!=0){
+				getPoints(li,currColor);
+				// console.log(li)
+				if(any()){
+					$(`.${currColor}-block .${currColor}-coin`).addClass('allowed-coin');
+				}
+				$(`.coin-visibility .${currColor}-coin`).addClass('allowed-coin');
+				return;
+
+			}
+			
+		}
+		window.scrollTo(0,0);
 		// console.log(insideHome)
 		getPoints();
 		ran=0;
-		li=[]
+		li=[6]
 		var nextId = `p${ni+1}`;
+		// console.log(nextId);
 		$('.current').removeClass('current');
 
 		$(`#${nextId}`).addClass('current');
@@ -356,8 +456,9 @@ $(document).ready(function(){
 			}
 			changeUser();
 		}
+		$(`.b${ni+1}`).show();
 		full = false;
-		$('.get-num').show();
+		// $('.get-num').show();
 
 		// setTimeout(function(){
 		// 	console.log("he")
@@ -367,10 +468,7 @@ $(document).ready(function(){
 	}
 
 	function getExtraChance(){
-		ni--;
-		if(ni<0){
-			ni=3;
-		}
+		set = 1;
 	}
 	function remove(lis,num){
 		var index = lis.indexOf(num);
@@ -379,7 +477,6 @@ $(document).ready(function(){
 	}
 
 
-	var allP=[];
 	function checkList(lis,num){
 		return new Promise((resolve,reject)=>{
 			if(num==0)return false;
@@ -440,12 +537,31 @@ $(document).ready(function(){
 		})
 		
 	}
-	
+	var rank=1
+	function winner(nii,color){
+		console.log("winner called")
+		var name = $(`.name${nii+1}`).val();
+		$('.win').append(`
+			<div class="winner" style = "background-color:${color}">
+				<div class="rank">Rank ${rank}</div>
+				<div  class="winnerName"> ${name}</div>
+			</div>
+			`);
+		rank++;
+		console.log(notPlaying);
+		if(notPlaying.length==3){
+			console.log("in winner 3")
+			$('.cont1,.cont2,.home').hide()
+			$('.cont3').hide();
+			$('.win').show();
+		}
 
+	}
 	function nextPositions(currPosition,color,num){
 		// console.log('in nextPositions..')
 		return new Promise((resolve,reject)=>{
 			// console.log(currPosition,color,num);
+			$(`.next-coin`).attr('id','')
 			$('.next-coin').removeClass('next-coin');
 			allPositions()
 			.then(ans=>{
@@ -484,12 +600,17 @@ $(document).ready(function(){
 					
 				}
 				$(`.next-coin`).click(function(){
-					$('.next-coin').removeClass('next-coin');
+					
 					// console.log("next coin clicked")
 					var id=$(this).attr('id');
-					$(`.coin-visibility div[color='${color}']div[no='${num}']`).removeClass(`allowed-coin`);
-					$(`.coin-visibility div[color='${color}']div[no='${num}']`).removeClass(`coin`);
-					$(`.coin-visibility div[color='${color}']div[no='${num}']`).removeClass(`${color}-coin`);
+
+					var rm=$(`.coin-visibility div[color='${color}']div[no='${num}']`)
+					$(rm).removeClass(`allowed-coin`);
+					$(rm).removeClass(`coin`);
+					$(rm).removeClass(`${color}-coin`);
+					$(rm).attr('id','');
+					$(rm).attr('color','')
+					$(rm).attr('no','');
 					var cutId = $(this).attr('no');
 					var cutColor = $(this).attr('color');
 					// console.log(cutId,cutColor);
@@ -520,9 +641,13 @@ $(document).ready(function(){
 					}
 					if(currPosition==homeQueue[nii][lenQueue-1]){
 						outsideHome[nii]++;
+						setTimeout(()=>{
+							$(`.home .coin-visibility`).html('');
+						},2000);
 						onHome[nii]--;
 						if(outsideHome[nii]==4){
 							notPlaying.push(nii);
+							winner(nii,color);
 						}
 						else
 						getExtraChance();
@@ -536,6 +661,8 @@ $(document).ready(function(){
 					setTimeout(function(){
 						resolve(true);
 					},1000);
+					$(`.next-coin`).attr('id','');
+					$('.next-coin').removeClass('next-coin');
 					
 				})
 			})
@@ -563,7 +690,7 @@ $(document).ready(function(){
 					nii=colors.indexOf(color)
 					// console.log(nii,homeQueue[nii],last)
 					var ind = homeQueue[nii].findIndex(equal);
-					if((onHome[nii]==1 && !any() && insideHome[nii]>0) || (insideHome[nii]==0 && onHome[nii]==1)){
+					if((onHome[nii]==1 && !any() && insideHome[nii]>0) || (insideHome[nii]==0 && onHome[nii]==1 && !any())){
 					// if(false){
 						var sum=0;
 						for(i in li){
@@ -574,6 +701,9 @@ $(document).ready(function(){
 							if(sum==lenQueue-1){
 								
 								outsideHome[nii]++;
+								setTimeout(()=>{
+									$(`.home .coin-visibility`).html('');
+								},2000);
 								onHome[nii]--;
 								if(outsideHome[nii]==4){
 									notPlaying.push(nii);
@@ -581,14 +711,19 @@ $(document).ready(function(){
 								else{
 									getExtraChance();
 								}
-							}
-							$(`.coin-visibility .${color}-coin`).removeClass('coin')
-							$(`.coin-visibility .${color}-coin`).removeClass(`${color}-coin`);
+							}	
+							var ds = $(`.coin-visibility .${color}-coin`);
+							ds.removeClass('coin')
+							ds.removeClass(`${color}-coin`);
+							ds.removeClass(`allowed-coin`);
+							ds.attr('color','')
+							ds.attr('id','')
+							ds.attr('no','')
 							nextIndexPosition  = homeQueue[nii][sum];
 							var cut = $(`#${nextIndexPosition} .coin-visibility .coin`);
 							var cutId = $(cut).attr('no');
 							var cutColor = $(cut).attr('color');
-							if(cutId && cutColor!=color){
+							if(cutId && cutColor && cutColor!=color){
 								var cutCoin=$(`#${id} .coin-visibility div[no='${cutId}']`)
 								console.log('inside cutting',cutCoin);
 								$(cutCoin).removeClass('coin');
@@ -703,10 +838,6 @@ $(document).ready(function(){
 			func("green",num)
 		}
 	})
-
-	
-
-
 
 	
 })
