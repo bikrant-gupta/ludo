@@ -1,44 +1,46 @@
 *{
 	margin: 0px;
 	box-sizing: border-box;
-
+	/* overflow-y: hidden; */
+}
+body{
+	height: 100% !important;
+}
+.container{
+	height:100vh;
 }
 .main-box{
-	margin: 20px;
-	border:2px solid black;
-	height: 500px;
-	width:500px;
+	/* margin: 20px; */
+	/* border:2px solid black; */
+	height: 100%;
+	width:100%;
+	/* margin-top: 100px; */
 	position: relative;
 }
 
 .home-block{
-	/*border:1px solid black;*/
-	height: 180px;
-	width:180px;
+	height: 36%;
+	width:36%;
 	position:absolute;
 }
 
 .red-block{
-	/*position:relative;*/
 	top:0px;
 	left:0px;
 	background-color:red;
 }
 
 .blue-block{
-	/*position:relative;*/
 	top:0px;
 	right:0px;
 	background-color: #03a9f4;
 }
 .yellow-block{
-	/*position:relative;*/
 	bottom:0px;
 	right:0px;
 	background-color:rgba(255,250,0,1);
 }
 .green-block{
-	/*position:relative;*/
 	bottom:0px;
 	left:0px;
 	background-color:#98e021;
@@ -53,16 +55,16 @@
 
 .white-circle{
 	height: 100%;
-	border:2px solid white;
+	border:1px solid white;
 	border-radius: 50%;
 	background-color: white;
 }
 
 .goal{
-	height: 140px;
-	width: 140px;
-	top:178px;
-	left:178px;
+	height: 28%;
+	width: 28%;
+	top:36%;
+	left:36%;
 	border-top: 2px solid #03a9f4;
 	border-left: 2px solid red;
 	border-right: 2px solid yellow;
@@ -70,58 +72,52 @@
 	border-radius:30%;
 	text-align: center;
 	padding: 10px;
-	/*vertical-align: center;*/
-	/*padding:20px;*/
-	/*padding-top:50px;*/
 }
-
 .road-box{
-	
-	/*border:1px solid black;*/
 	position: absolute;
 }
 .rb1{
-	width: 178px;
-	height:136px;
-	top: 180px;
+	width: 36%;
+	height:28%;
+	top: 36%;
 	left:0px;
 }
 .rb2{
-	width: 136px;
-	height:178px;
+	width: 28%;
+	height:36%;
 	top: 0px;
-	left:180px;
+	left:36%;
 }
 
 .rb3{
-	width: 178px;
-	height:136px;
-	top: 180px;
+	width: 36%;
+	height:28%;
+	top: 36%;
 	right:0px;
 	/*background-color:green;*/
 }
 
 .rb4{
-	width: 136px;
-	height:178px;
+	width: 28%;
+	height:36%;
 	bottom: 0px;
-	left:180px;
+	left:36%;
 }
 
 .rb1 .road-each-box,.rb3 .road-each-box{
-	width: 	16.67%;
+	width: 	16.66%;
 	height: 33.33%;
-	border:1px solid black;
+	border:0.1vmin solid black;
 	float: left;
 	padding-top: 5% !important;
 }
 
 .rb2 .road-each-box,.rb4 .road-each-box{
-	height: 16.67%;
+	height: 16.66%;
 	width: 33.33%;
-	border:1px solid black;
+	border:0.1vmin solid black;
 	float: left;
-	padding-top: 3% !important;
+	padding-top: 0.5% !important;
 }
 
 .coin-visibility{
@@ -131,30 +127,30 @@
 
 }
 
-.test-color{
-	background-color: #aaa;
-	height: 20px;
-	width: 20px;
-}
 .red-block .red-coin{
 	height: 100%;
 	width: 100%;
 }
-.coin-visibility .red-coin{
-	height: 20px;
-	width: 20px;
+.coin-visibility .red-coin,.coin-visibility .blue-coin,.coin-visibility .yellow-coin,.coin-visibility .green-coin{
+	height: 5.5vmin;
+	width: 5.5vmin;
+
 }
-.coin-visibility .blue-coin{
-	height: 20px;
-	width: 20px;
+.allowed-coin{
+	border:0.7vmin dotted black !important;
 }
-.coin-visibility .yellow-coin{
-	height: 20px;
-	width: 20px;
+
+.coin-visibility .allowed-coin{
+	animation-name: forCoins;
+	animation-duration:1s;
+	animation-iteration-count: infinite;
+	height: 5vmin !important;
+	width: 5vmin !important;
 }
-.coin-visibility .green-coin{
-	height: 20px;
-	width: 20px;
+.red-block .allowed-coin,.blue-block .allowed-coin,.yellow-block .allowed-coin,.green-block .allowed-coin{
+	animation-name: forInsideCoins;
+	animation-duration:1s;
+	animation-iteration-count: infinite;
 }
 
 .coin{
@@ -169,7 +165,7 @@
 	/*transform: translate(-50%, -50%);
 }*/
 .red-coin{
-	border:2px solid white;
+	border:0.5vmin solid white;
 	background-image:linear-gradient(red,#aaa);
 }
 .red-dice{
@@ -181,7 +177,7 @@
 	width: 100%;
 }
 .blue-coin{
-	border:2px solid white;
+	border:0.5vmin solid white;
 	background-image:linear-gradient(#03a9f4,#aaa);
 }
 .blue-dice{
@@ -192,7 +188,7 @@
 	width: 100%;
 }
 .yellow-coin{
-	border:2px solid white;
+	border:0.5vmin solid white;
 	background-image:linear-gradient(yellow,#aaa);
 }
 .yellow-dice{
@@ -204,7 +200,7 @@
 	width: 100%;
 }
 .green-coin{
-	border:2px solid white;
+	border:0.5vmin solid white;
 	background-image:linear-gradient(#98e021,#aaa);
 }
 .green-dice{
@@ -216,17 +212,9 @@
 	top:0px;
 	left:0px;
 	width:100%;
-	box-shadow: 3px 4px 9px 0px black;
+	/* box-shadow: 3px 4px 9px 0px black; */
 }
-.current-player{
-	/*position: fixed;
-	top:40px;
-	left:0px;
-	height: 40px;
-	width:100%;
-	padding: 2px;
-	margin-bottom: 30px;*/
-}
+
 .name{
 	float:left;
 	border: 1px;
@@ -242,20 +230,16 @@
 
 .name1{
 	background-image:linear-gradient(red,#aaa);
-	/*background-color: red;*/
 }
 
 .name2{
 	background-image:linear-gradient(#03a9f4,#aaa);
-	/*background-color: #03a9f4;*/
 }
 .name3{
 	background-image:linear-gradient(yellow,#aaa);
-	/*background-color: yellow;*/
 }
 .name4{
 	background-image:linear-gradient(#98e021,#aaa);
-	/*background-color: #98e021;*/
 }
 
 .current{
@@ -264,35 +248,22 @@
 }
 
 .button{
-	margin-top: 40px;
-	min-height: 50px;
+	/*margin-top: 40px;*/
+	min-height: 100px;
 	width:100%;
-	padding-left: 35%;
-	padding-right: 35%;
+	/*padding-left: 35%;*/
+	/*padding-right: 35%;*/
 }
-.get-num{
-	
-	
-	/*min-width: 150px;*/
-	width:100%;
-	height: 50px;
-	background-image: linear-gradient(red,blue);
-	color:white;
-	border-radius: 20px;
-	font-weight: bold;
-	margin-left:auto;
 
-}
 
 .disp-num{
 	font-size: 30px;
 	font-weight: bold;
+	width: 100%;
+	height: 100%;
 }
 
-.allowed-coin{
-	border:2px solid black;
 
-}
 
 .next-coin{
 	background-image:linear-gradient(#000,#aaa);
@@ -301,14 +272,20 @@
 	border:0.5px solid #575757;
 	border-radius:50%;
 	margin:auto;
+	animation-name: forCoins;
+	animation-duration:1s;
+	animation-iteration-count: infinite;
 }
 .next-coin.cut-border{
 	border:2px solid red!important;
+	animation-name: forCoins;
+	animation-duration:0.5s;
+	animation-iteration-count: infinite;
 }
 .home{
 	height: 30px;	
 	background-color: #555;
-
+	margin-top: 50px;
 }
 
 .home .coin-visibility{
@@ -320,12 +297,23 @@
 .home .coin-visibility .coin{
 	float: left !important;
 }
+/*'rb11','rb114','rb25','rb26','rb316','rb33','rb412','rb411'*/
 .home .coin-visibility .next-coin{
 	background-image: none;
 	background-color: white !important;
 	float: left !important;
 	margin:0px;
-
+}
+.coin-visibility #rb25,.coin-visibility #rb26,.coin-visibility #rb412,.coin-visibility #rb411{
+	float: left !important;
+	margin-left:0px;
+	width:10px;
+	height: 10px;
+}
+.coin-visibility #rb11,.coin-visibility #rb114,.coin-visibility #rb316,.coin-visibility #rb33{
+	margin-top:0px;
+	width:10px;
+	height: 10px;
 }
 
 .home .text{
@@ -336,27 +324,46 @@
 	font-weight: bold;
 	color:white;
 	float: left;
-
-
 }
 
 .square{
-	width:50px;
-	height: 50px;
+	height: 10% !important;
+	width: 10%;
 	border: 4px solid black;
 	border-radius: 10px;
 	float: left;
-	margin-left:5px;
-	margin-bottom: 5px;
-	font-size:30px;
+	margin-left:5%;
+	margin-bottom: 5%;
+	font-size:8vmin;
 	font-weight: bold;
 	text-align: center;
 }
+.disp-num .square{
+	height: 40% !important;
+	width: 40%;
+	border: 0.8vmin solid black;
+	border-radius: 10px;
+	float: left;
+	margin-left : 7%;
+	margin-bottom: 5%;
+	font-size:5vmin;
+	font-weight: bold;
+	text-align: center;
+}
+.timer{
+	font-size: 2vmin;
+}
+.timer-dice{
+
+	background-color: #ddd;
+	margin:30%!important;
+}
+
 
 .point{
-	height: 7px;
-	width: 7px;
-	border:3.5px solid black;
+	height: 1.6vmin;
+	width: 1.6%;
+	border:0.8vmin solid black;
 	margin:auto;
 	border-radius: 50%;
 	
@@ -365,13 +372,13 @@
 .w-2{
 	width:50%;
 	float: left;
-	padding: 2px;
+	padding: 10%;
 	/*padding: 3px;*/
 }
 .w-1{
 	width:100%;
 	float: left;
-	padding: 2px;
+	padding: 1vmin;
 	/*padding: 3px;*/
 }
 .h-3{
@@ -379,41 +386,43 @@
 }
 .h-2{
 	height: 50%;
-	padding: 5px;
+	padding: 10%;
 }
 .h-1{
 	/*padding: 15px;*/
-	padding-top:15px;
+	padding-top:40.2%;
 	height: 100%;
 }
 
 .username{
-	height: 500px;
-	width: 500px;
+	height: 100%;
+	width: 100%;
 	border: 2px solid black;
-	margin: 15px;
-	/*box-shadow: 16px 14px 9px 0px #aaa;*/
 	background-color: #aaaaaa;
 }
 
 .username .square{
-	margin:15px;
+	margin:3vmin;
 	background-image:linear-gradient(#333,#aaa);
 	box-shadow: 10px 10px 9px 0px black;
+	
 }
 
 .username input{
 	width:90%;
 	margin-left:5%;
 	margin-right:5%;
-	margin-top: 20px;
-	height:40px;
+	margin-top: 5vmin;
+	height:8vmin;
 	border:none;
-	border-radius: 10px;
+	border-radius: 1vmin;
 	font-size:20px;
 	padding-left:20px;
 	color:white;
 	box-shadow: 5px 5px 9px 0px black;
+}
+.button2{
+	width:100%;
 }
 .continue{
 	min-height: 50px;
@@ -422,13 +431,119 @@
 	color:white;
 	border-radius: 20px;
 	font-weight: bold;
-	margin-left:auto;
+	width:20%;
+	margin-top:40px;
+	margin-left:40%;
 	box-shadow: 0px 5px 9px 0px black;
 }
 
-
+/*
 .coin#rb25,.coin#rb26,.coin#rb411,.coin#rb412{
 	width:15px!important;
 	height:15px!important;
 	border:0.5px;
+}*/
+
+.b1{
+	left:0px;
+	top:-50px;
+
+}
+.b2{
+	top:-50px;
+	right:0px;
+}
+
+.b3{
+	bottom:-50px;
+	right:0px;
+}
+
+.b4{
+	bottom:-50px;
+	left:0px;
+}
+.get-num{
+	width:150px;
+	position:absolute;
+	height: 50px;
+	background-image: linear-gradient(red,blue);
+	color:white;
+	border-radius: 20px;
+
+	font-weight: bold;
+	animation-name: buttonn;
+	animation-duration:1s;
+	animation-iteration-count: infinite;
+	display: none;
+	/*margin-left:auto;*/
+
+}
+
+.win{
+	margin:20px;
+	border:2px dotted black;
+	padding:5%;
+	border-radius: 20px;
+	min-height: 100%;
+	width:100%;
+	font-size:30px;
+	text-align: center;
+	background-color: #888;
+}
+.winner{
+	margin:20px;
+}
+.rank{
+	text-decoration: underline;
+}
+
+
+@keyframes forCoins{
+	0%{
+		margin-top: 0%;
+		height: 5.5vmin;
+		width: 5.5vmin;
+
+	}
+	50%{
+		margin-top: 8% ;
+		height: 4vmin;
+		width: 4vmin;
+
+	}
+	100%{
+		margin-top: 0%;
+		height: 5.5vmin;
+		width: 5.5vmin;
+
+	}
+}
+
+@keyframes forInsideCoins{
+	0%{
+		margin:0px;
+	}
+	50%{
+		margin:10%;
+		width:80%;
+		height: 80%;
+	}
+	100%{
+		margin:0px;
+	}
+}
+@keyframes buttonn{
+	0%{
+		height: 50px;
+		width:150px;
+	}
+	50%{
+		height: 40px;
+		width:120px;
+	}
+	100%{
+		height: 50px;
+		width:150px;
+	}
 }
