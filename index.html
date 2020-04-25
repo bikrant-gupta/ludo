@@ -2,35 +2,35 @@
 <html>
 <head>
 	<title>LUDO</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
 	<link rel="stylesheet" type="text/css" href="ludo.css">
+
 </head>
 <body>
 	<div class="container cont3">
 		<div class="username">
-			<div class="container">
-				<div class="six square">
-					<div class="w-2 h-3"><div class="point"></div></div>
-					<div class="w-2 h-3"><div class="point"></div></div>
-					<div class="w-2 h-3"><div class="point"></div></div>
-					<div class="w-2 h-3"><div class="point"></div></div>
-					<div class="w-2 h-3"><div class="point"></div></div>
-					<div class="w-2 h-3"><div class="point"></div></div>
-				</div>
-				<div class="five square">
-					L
-				</div>
-				<div class="four square">
-					U
-				</div>
-				<div class="three square">
-					D
-				</div>
-				<div class="two square">
-					O
-				</div>
-				<div class="one square">
-					<div class="w-1 h-1"><div class="point"></div></div>
-				</div>
+			<div class="six square">
+				<div class="w-2 h-3"><div class="point"></div></div>
+				<div class="w-2 h-3"><div class="point"></div></div>
+				<div class="w-2 h-3"><div class="point"></div></div>
+				<div class="w-2 h-3"><div class="point"></div></div>
+				<div class="w-2 h-3"><div class="point"></div></div>
+				<div class="w-2 h-3"><div class="point"></div></div>
+			</div>
+			<div class="five square">
+				L
+			</div>
+			<div class="four square">
+				U
+			</div>
+			<div class="three square">
+				D
+			</div>
+			<div class="two square">
+				O
+			</div>
+			<div class="one square">
+				<div class="w-1 h-1"><div class="point"></div></div>
 			</div>
 			<div class="fill-name">
 				<input type="name" name="name1" class="name1 user" placeholder="Enter name of player 1">
@@ -38,28 +38,26 @@
 				<input type="name" name="name3" class="name3 user" placeholder="Enter name of player 3">
 				<input type="name" name="name4" class="name4 user" placeholder="Enter name of player 4">
 			</div>
-			<div class="button">
-				<button class="continue">Continue</button>
+			<div class="button2">
+				<button class="continue">Let's Play</button>
 			</div>
 			
 		</div>
 	</div>
-	
-	<div class="container cont1">
+	<div class="cont1">
 		<div class="player-name">
-			<div class="name1 name current" id="p1">Not Playing</div>
+			<div class="name1 name" id="p1">Not Playing</div>
 			<div class="name2 name" id="p2">Not Playing</div>
 			<div class="name3 name" id="p3">Not Playing</div>
 			<div class="name4 name" id="p4">Not Playing</div>
 		</div>
 		<div class="current-player"></div>
-		<div class="button">
-			<button class="get-num">Click me</button>
-		</div>
 	</div>
 	<div class="container cont2">
 		<div class="main-box">
+			
 			<div class="red-block home-block">
+				<!-- <input type="text" class="dicevalue"> -->
 				<div class="home-partition">
 					<div class="white-circle">
 						<div class="coin red-coin" color="red" no="1"></div>
@@ -81,8 +79,8 @@
 					</div>
 				</div>
 			</div>
-
-
+	
+	
 			<div class="blue-block home-block">
 				<div class="home-partition">
 					<div class="white-circle">
@@ -127,7 +125,7 @@
 					</div>
 				</div>
 			</div>
-
+	
 			<div class="green-block home-block">
 				<div class="home-partition">
 					<div class="white-circle">
@@ -151,13 +149,16 @@
 				</div>
 				
 			</div>
+			<div class="button">
+				<button class="get-num b1">Click here</button>
+				<button class="get-num b2">Click here</button>
+				<button class="get-num b3">Click here</button>
+				<button class="get-num b4">Click here</button>
+			</div>
 			<div class="goal home-block">
-				<!-- <div class="button">
-					<center><button class="get-num">Click me</button></center>
-				</div> -->
-				
-				<center><div class="disp-num"></div></center>
-				
+				<div class="disp-num">
+					
+				</div>
 			</div>
 			<div class="road-box rb1"></div>
 			<div class="road-box rb2"></div>
@@ -174,6 +175,11 @@
 			<!-- <div class="next-coin"></div> -->
 		</div>
 	</div>
+	<div class="win">
+		
+	</div>
+	
+
 
 	
 
@@ -188,6 +194,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <script src="ludo.js"></script>
+<script src="heightwidth.js"></script>
 
 </body>
 </html>
