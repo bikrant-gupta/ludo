@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	// $('.cont1,.cont2,.home,.win').hide()
-	$('.cont3,.win').hide();
+	$('.cont1,.cont2,.home,.win').hide()
+// 	$('.cont3,.win').hide();
 	var time = 0;
 	var timeDice="";
 	var timerSet = 0;
